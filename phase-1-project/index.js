@@ -1,7 +1,4 @@
-
-
 document.addEventListener("DOMContentLoaded", () =>{
-      
     const movieCollection = document.getElementById('movie-collection') 
     function renderMovie(movie) {
         const movieInfo = 
@@ -9,6 +6,8 @@ document.addEventListener("DOMContentLoaded", () =>{
             <h2>${movie.name}</h2>
             <p>Rotten Tomatoes Score: ${movie.rottenTomatoesScore}</p>
             <p>Box Office Revenue: ${movie.boxOfficeRevenueInMillions} million</p>
+            <textarea rows="4" cols="50" name="comment" form="usrform">What did you think?</textarea>
+            <input type="submit" value="Submit">
             <p></p>
             <button class="like-btn" id="${movie.id}">Like ❤️</button>
           </div>`
