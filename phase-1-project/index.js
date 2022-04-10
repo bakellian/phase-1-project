@@ -1,4 +1,4 @@
-const voteButton = document.getElementsByClassName('like-btn')
+
 // at this point in the code this collection will be empty
 // we have to wait for the html to be rendered once the network call returns.
 // const postCommentBtn = document.getElementsByClassName('comment-btn');
@@ -20,11 +20,23 @@ function setupEventHandlers (postCommentBtns) {
           li.appendChild(text);
             //comments are only appending to the first box - how do I get them to append to the box the user is on
           document.getElementById("unordered").appendChild(li);
+          
+          //need to work on clearing comment box after comment is sent 
       })
     })
 }
 // setupEventHandlers(document.getElementsByClassName('comment-btn'))
 
+// function setUpVoteButtons (voteButtons) {
+//     console.log(voteButtons)
+//     [...voteButtons].forEach(btn => {
+//         btn.addEventListener('click', function() {
+//             event.preventDefault();
+//             console.log('vote button was clicked!')
+//             let voteCount = document.
+//         })
+//     })
+// }
 
 document.addEventListener("DOMContentLoaded", () => {
     console.log("DOMContentLoaded 1")
@@ -35,15 +47,17 @@ document.addEventListener("DOMContentLoaded", () => {
           `<div class="card">
             <h2>${movie.name}</h2>
             <p><b>Rotten Tomatoes Score:</b> ${movie.rottenTomatoesScore}</p>
+            <p><b>Your Votes:</b>
+                <p id="vote-section">123</p>
             <p><b>Box Office Revenue:</b> ${movie.boxOfficeRevenueInMillions} million</p>
             
             <h3>comments:</h3>
-            <ul id="unordered">
+                <ul id="unordered">
 
-            </ul>
+                </ul>
             <input type="text" id="comment-box" placeholder="Enter comment">
             <button class="comment-btn" id="${movie.id}">COMMENT</button>
-            <button class="like-btn" id="${movie.id}">VOTE</button>
+            <button class="vote-btn" id="${movie.id}">VOTE</button>
           </div>`
         
           movieCollection.innerHTML += movieInfo
@@ -54,17 +68,12 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(response => response.json())
         .then(result => {
             window.movies = result.docs
-            
             result.docs.forEach(renderMovie)
             setupEventHandlers(document.getElementsByClassName('comment-btn'))
-           
-
-            console.log("step len: ",     document.getElementsByClassName('comment-btn').length)
-            
-
         })
         .catch(error => console.log('error', error));
     }
+    
     console.log('fetching movies')
     fetchMovie()
 
@@ -78,7 +87,15 @@ document.addEventListener("DOMContentLoaded", () => {
         //heres the array - make it only 200 min movies 
         //try doing this in the console first and then move forward 
     }
+ 
+    let voteButtons = document.getElementsByClassName('vote-btn')
+    console.log(voteButtons)
 
+    let longMoviesBtn = document.getElementById("long-movies-btn")
+    console.log(longMoviesBtn)
+
+    let shortMoviesBtn = document.getElementById("short-movies-btn")
+    console.log(shortMoviesBtn)
 
 
 
