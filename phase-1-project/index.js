@@ -1,14 +1,10 @@
 document.addEventListener("DOMContentLoaded", () => {
-    console.log("DOMContentLoaded 1")
 
     function renderMovie(movie) {
-        console.log("renderMovie 3")
         let movieInfo = 
           `<div class="card">
             <h2>${movie.name}</h2>
             <p><b>Rotten Tomatoes Score:</b> ${movie.rottenTomatoesScore}</p>
-            <p><b>Your Votes:</b>
-                <p id="vote-section">123</p>
             <p><b>Box Office Revenue:</b> ${movie.boxOfficeRevenueInMillions} million</p>
             
             <h3>comments:</h3>
@@ -19,7 +15,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 <input type="text" id="comment-box" placeholder="Enter comment">
                 <button class="comment-btn" id="${movie._id}">COMMENT</button>
             </form>
-            <button class="vote-btn" id="${movie.id}">VOTE</button>
           </div>`
         
           movieCollection.innerHTML += movieInfo
@@ -34,30 +29,25 @@ document.addEventListener("DOMContentLoaded", () => {
             window.movies = result.docs
             result.docs.forEach(renderMovie)
             setupEventHandlers()
-            let shortMovieArr = movies.filter((movie) => movie.runtimeInMinutes < 200) //can set up variable in this function
+            // let shortMovieArr = movies.filter((movie) => movie.runtimeInMinutes < 200) //can set up variable in this function
             let longMovieArr = movies.filter((movie) => movie.runtimeInMinutes > 200)
-            console.log('short arr:', shortMovieArr)
+            // console.log('short arr:', shortMovieArr)
             console.log('long movie arr:', longMovieArr)
 
             function showShortMovies() {
                 let shortMoviesBtn = document.getElementById("short-movies-btn")
+                let shortMovieArr = movies.filter((movie) => movie.runtimeInMinutes < 200)
+                console.log('short arr:', shortMovieArr)
                 shortMoviesBtn.addEventListener('click', function() {
-                    console.log('clicked!')
-                    console.log(shortMovieArr);
-                    // return only the movies shorter than '200 minutes' 
+                    console.log("now return to the DOM")
+                    renderMovie(shortMovieArr);
+                    //now return the object to the DOM
                 })
             }
             showShortMovies();
         })
         .catch(error => console.log('error', error));
     }
-
-    // function showShortMovies() {
-    //     shortMoviesBtn.addEventListener('click', function() {
-    //         console.log('clicked!')  
-    //     })
-    // }
-    // showShortMovies()
 
     function setupEventHandlers () {
         console.log("setupEventHandlers 1");
