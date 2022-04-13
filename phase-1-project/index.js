@@ -29,22 +29,28 @@ document.addEventListener("DOMContentLoaded", () => {
             window.movies = result.docs
             result.docs.forEach(renderMovie)
             setupEventHandlers()
-            // let shortMovieArr = movies.filter((movie) => movie.runtimeInMinutes < 200) //can set up variable in this function
-            let longMovieArr = movies.filter((movie) => movie.runtimeInMinutes > 200)
-            // console.log('short arr:', shortMovieArr)
-            console.log('long movie arr:', longMovieArr)
+            
 
             function showShortMovies() {
-                let shortMoviesBtn = document.getElementById("short-movies-btn")
-                let shortMovieArr = movies.filter((movie) => movie.runtimeInMinutes < 200)
-                console.log('short arr:', shortMovieArr)
+                const shortMoviesBtn = document.getElementById("short-movies-btn")
+                const shortMovieArr = movies.filter((movie) => movie.runtimeInMinutes < 200)
                 shortMoviesBtn.addEventListener('click', function() {
                     console.log("now return to the DOM")
-                    renderMovie(shortMovieArr);
-                    //now return the object to the DOM
+                    movieCollection.innerHTML = ""
+                    shortMovieArr.forEach(renderMovie)
                 })
             }
             showShortMovies();
+
+            function showLongMovies() {
+                const longMoviesBtn = document.getElementById('long-movies-btn')
+                const longMovieArr = movies.filter((movie) => movie.runtimeInMinutes > 200)
+                longMoviesBtn.addEventListener('click', function() {
+                    movieCollection.innerHTML = ""
+                    longMovieArr.forEach(renderMovie)
+                })
+            }
+            showLongMovies();
         })
         .catch(error => console.log('error', error));
     }
@@ -92,10 +98,3 @@ document.addEventListener("DOMContentLoaded", () => {
     // let longMovieArr= movies.filter((movie) => movie.runtimeInMinutes > 200)
     
 })
-
-
-//concept:
-// allMovies = getMovies() 
-//these are functions: 
-// longMovies = moviesLongerThanMins(minutes, movies) // return only the movies longer than 'minutes'
-// shortMovies = moviesShorterThanMins(minutes, movies) // return only the movies shorter than '200 minutes' 
