@@ -23,9 +23,9 @@ document.addEventListener("DOMContentLoaded", () => {
     function fetchMovie() {
         fetch("https://the-one-api.dev/v2/movie", {headers: {Authorization: 'Bearer 07MCBm8QqP0vQVu9yGIR'}})
         .then(response => response.json())
-        .then(data => movies = data) // assigning the fetch to a variable
+        .then(data => movies = data)
         .then(result => {
-            console.log("all movies:", movies) //this is to see the movie collection in the console
+            console.log("all movies:", movies)
             window.movies = result.docs
             result.docs.forEach(renderMovie)
             setupEventHandlers()
@@ -51,50 +51,35 @@ document.addEventListener("DOMContentLoaded", () => {
                 })
             }
             showLongMovies();
+
+            function showAllMovies() {
+                const allMoviesBtn = document.getElementById("all-movies-btn")
+                allMoviesBtn.addEventListener("click", function() {
+                    movieCollection.innerHTML = ""
+                    movies.forEach(renderMovie)
+                })
+            }
+            showAllMovies();
         })
         .catch(error => console.log('error', error));
     }
 
     function setupEventHandlers () {
         console.log("setupEventHandlers 1");
-    
         document.getElementById('movie-collection').addEventListener('submit', (e) => {
             e.preventDefault()
             console.log("comment button:", e.target.parentElement.querySelector('ul'))
             const ul = e.target.parentElement.querySelector('ul')
-        // })
-        // using spread operator to change html collection to array
-        // can also use Array.from()
-        // Array.from(document.getElementsByClassName('comment-btn')).forEach(btn => {
-            // btn.addEventListener('click', () => {
-                
               console.log('it was clicked')
               let commentValue = e.target.parentElement.querySelector("#comment-box").value; 
-    
               let li = document.createElement("li");
               let text = document.createTextNode(commentValue);
               li.appendChild(text);
-                //comments are only appending to the first box - how do I get them to append to the box the user is on
               ul.appendChild(li);
               e.target.parentElement.querySelector("#comment-box").value = ""
-            
-        //   })
         })
     }
-    
-    
-    console.log('fetching movies')
-    fetchMovie()
-
-
- 
-    let voteButtons = document.getElementsByClassName('vote-btn')
-    let longMoviesBtn = document.getElementById("long-movies-btn")
+    fetchMovie();
     
     const movieCollection = document.getElementById('movie-collection') 
-
-    //working filter functions:
-    // let shortMovieArr = movies.filter((movie) => movie.runtimeInMinutes < 200)
-    // let longMovieArr= movies.filter((movie) => movie.runtimeInMinutes > 200)
-    
 })
