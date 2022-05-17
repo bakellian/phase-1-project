@@ -1,7 +1,7 @@
 const movieCollection = document.getElementById('movie-collection') 
 
 document.addEventListener("DOMContentLoaded", () => {
-    fetchMovie();   
+    fetchMovies();   
 })
 
 function renderMovie(movie) {
@@ -24,10 +24,9 @@ function renderMovie(movie) {
       movieCollection.innerHTML += movieInfo
 }
 
-function fetchMovie() {
+function fetchMovies() {
     fetch("https://the-one-api.dev/v2/movie", {headers: {Authorization: 'Bearer 07MCBm8QqP0vQVu9yGIR'}})
     .then(response => response.json())
-    .then(data => movies = data)
     .then(result => {
         movies = result.docs
         movies.forEach(movie => renderMovie(movie))
